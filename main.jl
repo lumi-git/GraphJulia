@@ -1,17 +1,28 @@
+struct Node
+    value::Int64
+end
+
+function newNode(value)
+    Node(value)
+end
+
+#set costs to 1 for all vertices
+costs = [[ 0, 5, 2, 3 ],
+         [ 1, 0, 10, 2 ],
+         [ 2, 30, 20, 1 ],
+         [ 3, 2, 12, 0,]]
 
 l = [[2],[1],[4],[3]] 
 vu = [false for i in 1:size(l)[1]] 
 
-struct Node
-    value::Int64
-    next::Node
-end
+
 
 function visit(node)
     for n in l[node]
         if vu[n] == false
             vu[n] = true
             push!(components[size(components)[1]],n)
+            print("cost of ",node," to ",n," is ",costs[node][n],"\n")
             visit(n)
         end
     end
@@ -37,3 +48,5 @@ for t in components
 end
 
 println(ret)
+
+
